@@ -98,6 +98,29 @@ if st.sidebar.button("Add Task"):
 
 # Display Calendar View
 st.subheader("Calendar View")
+
+target_date = st.session_state.calendar_end_date
+days_left = (target_date - today).days
+
+if days_left > 0:
+    weeks_left = days_left / 7
+
+    # Create two clean, responsive tracking columns
+    metric_col1, metric_col2 = st.columns(2)
+
+    # Display the countdown metrics
+    metric_col1.metric(label="Days Remaining until Exams", value=f"{days_left} days")
+    metric_col2.metric(
+        label="Weeks Remaining until Exams",
+        value=f"{weeks_left:.1f} weeks",  # Displays to one decimal point (e.g. 4.2 weeks)
+    )
+elif days_left == 0:
+    st.warning("Exams start today!")
+else:
+    st.error("The exam start date has passed.")
+
+st.write("")
+
 calendar_events = [
     {
         "title": f"[{'X' if t['completed'] else ' '}] {t['title']}",
