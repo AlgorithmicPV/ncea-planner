@@ -1,0 +1,10 @@
+venv/
+.venv/
+__pycache__/
+data/
+things_data.json
+venv/
+.venv/
+__pycache__/
+data/
+things_data.json
