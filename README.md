@@ -5,6 +5,16 @@ A web-based application built using Streamlit to track daily scheduling deadline
 
 ---
 
+## Demo
+
+<p align="center">
+  <img src="docs/notes.png" alt="notes Demo" width="900">
+  <img src="docs/past-papers.png" alt="past papers Demo" width="900">
+  <img src="docs/to-do.png" alt="todo Demo" width="900">
+</p>
+
+---
+
 ## Key Features
 
 ### Dynamic To-Do Calendar

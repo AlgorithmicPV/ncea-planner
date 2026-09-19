@@ -133,22 +133,39 @@ calendar_events = [
 calendar_options = {
     "initialView": "dayGridMonth",
     "height": "auto",  # Helps prevent full-height container layout overflow
-    "firstDay": 1,  # CHANGED: Sets the first day of the week to 1 (Monday)
+    "firstDay": 1,  # Sets the first day of the week to 1 (Monday)
     "validRange": {
-        "start": today.strftime("%Y-%m-%d"),  # Hides/greys out past dates automatically
+        # Removed the start limit so past months/weeks display normally on the calendar grid
         "end": (
             st.session_state.calendar_end_date + datetime.timedelta(days=1)
         ).strftime("%Y-%m-%d"),
     },
 }
 
-# Wrapper style frame preventing container resizing issue
+# Wrapper style frame targeting past dates via CSS overlay rules
 st.markdown(
     """
     <style>
+        /* Prevents layout container resizing issues */
         .calendar-container iframe {
             max-height: 600px !important;
             width: 100% !important;
+        }
+        
+        /* Direct injection logic to target past days generated within the calendar framework */
+        iframe html .fc-day-past,
+        .fc-day-past {
+            background-color: rgba(240, 240, 240, 0.4) !important; 
+            opacity: 0.55 !important;
+            filter: grayscale(80%) contrast(90%) !important;
+            pointer-events: none !important; /* Disables clicking or shifting on historical slots */
+        }
+        
+        /* Strikes through historical tasks to blend into the layout backgrounds */
+        .fc-day-past .fc-event-title,
+        .fc-day-past .fc-event {
+            text-decoration: line-through !important;
+            opacity: 0.5 !important;
         }
     </style>
     <div class="calendar-container">
